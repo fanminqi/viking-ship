@@ -43,13 +43,13 @@ const meta = {
       control: { type: "radio" },
       options: ["lg", "sm"],
     },
-    //链接地址
+   //按钮类型
     btnType: {
       description: "按钮类型",
       control: { type: "radio" },
       options: ["link", "default", "danger", "primary"],
     },
-    //按钮类型
+    //链接地址 
     href: {
       description: "链接地址（btnType=link 时生效）",
       control: { type: "text" },
