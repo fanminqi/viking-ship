@@ -7,6 +7,7 @@ import MenuItem from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
 import Tabs from "./components/Tabs/Tabs";
 import TabItem from "./components/Tabs/TabItem";
+import Upload from "./components/Upload/upload";
 // import Transition from "./components/Transition/transition";
 //FontAwesome React组件
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,6 +21,16 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Upload
+          action="https://jsonplaceholder.typicode.com/posts/"
+          name="fileName"
+          data={{ Key: "value" }}
+          headers={{ "X-P": "hello" }}
+          accept=".jpg"
+          multiple
+        ></Upload>
+        <Upload action="https://www.mocky.io/v2/5cc8019d300000980a055e76"></Upload>
+
         {/* <FontAwesomeIcon icon={faCoffee} size="10x"></FontAwesomeIcon> */}
         <Icon icon="arrow-down" theme="primary" size="10x"></Icon>
 

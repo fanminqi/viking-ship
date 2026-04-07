@@ -32,7 +32,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const { fetchSuggestions, value, onSelect, renderOption, ...restProps } =
     props;
 
-  const [inputValue, setInputValue] = useState(value as string);
+  const [inputValue, setInputValue] = useState((value as string) || "");
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState(false);
   const [highlightIndex, setHighlinghtIndex] = useState(-1);
@@ -43,6 +43,10 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   useClickOutside(componentRef, () => {
     setSuggestions([]);
   });
+
+  useEffect(() => {
+    setInputValue((value as string) || "");
+  }, [value]);
 
   //搜索变化时suggestion操作
   useEffect(() => {
@@ -151,3 +155,4 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     </div>
   );
 };
+export default AutoComplete;
