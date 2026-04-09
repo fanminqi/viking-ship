@@ -20,12 +20,12 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useState, useEffect, useRef, } from "react";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState, useEffect, useRef, } from "react";
 import Input from "../Input/input";
 import Icon from "../Icon/icon";
 import useDebounce from "../../hooks/useDebounce";
 import classNames from "classnames";
-import "./style.scss";
 import useClickOutside from "../../hooks/useClickOutside";
 export var AutoComplete = function (props) {
     var fetchSuggestions = props.fetchSuggestions, value = props.value, onSelect = props.onSelect, renderOption = props.renderOption, restProps = __rest(props, ["fetchSuggestions", "value", "onSelect", "renderOption"]);
@@ -108,20 +108,15 @@ export var AutoComplete = function (props) {
     };
     //渲染下拉菜单
     var generateDropdown = function () {
-        return (React.createElement("ul", { className: "viking-suggestion-list" }, suggestions.map(function (item, index) {
-            var cnames = classNames("suggestion-item", {
-                "is-active": index === highlightIndex,
-            });
-            return (React.createElement("li", { key: item.value, onClick: function () {
-                    handleSelect(item);
-                }, className: cnames }, renderTemplate(item)));
-        })));
+        return (_jsx("ul", __assign({ className: "viking-suggestion-list" }, { children: suggestions.map(function (item, index) {
+                var cnames = classNames("suggestion-item", {
+                    "is-active": index === highlightIndex,
+                });
+                return (_jsx("li", __assign({ onClick: function () {
+                        handleSelect(item);
+                    }, className: cnames }, { children: renderTemplate(item) }), item.value));
+            }) })));
     };
-    return (React.createElement("div", { className: "viking-auto-complete", ref: componentRef },
-        React.createElement(Input, __assign({ value: inputValue }, restProps, { onChange: handleChange, onKeyDown: handleKeyDown })),
-        loading && (React.createElement("ul", { className: "viking-suggestion-list" },
-            React.createElement("li", { className: "suggestions-loading-icon" },
-                React.createElement(Icon, { icon: "spinner", spin: true })))),
-        suggestions.length > 0 && generateDropdown()));
+    return (_jsxs("div", __assign({ className: "viking-auto-complete", ref: componentRef }, { children: [_jsx(Input, __assign({ value: inputValue }, restProps, { onChange: handleChange, onKeyDown: handleKeyDown })), loading && (_jsx("ul", __assign({ className: "viking-suggestion-list" }, { children: _jsx("li", __assign({ className: "suggestions-loading-icon" }, { children: _jsx(Icon, { icon: "spinner", spin: true }) })) }))), suggestions.length > 0 && generateDropdown()] })));
 };
 export default AutoComplete;

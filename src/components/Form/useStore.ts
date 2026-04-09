@@ -147,10 +147,13 @@ function useStore(initialValues?: Record<string, any>) {
       await validator.validate(valueMap);
     } catch (e) {
       isValid = false;
-      const err = e as any;
-      console.log("e", err.errors);
-      console.log("fields", err.fields);
-      errors = err.errors;
+      const err = e as ValidateErrorType;
+      errors =
+        err.errors?.length
+          ? err.errors
+          : name && err.fields?.[name]
+            ? err.fields[name]
+            : [];
     } finally {
       console.log("errors", isValid);
       //用 dispatch 把结果更新到全局状态

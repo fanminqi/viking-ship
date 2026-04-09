@@ -45,7 +45,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import React, { useContext, useEffect, } from "react";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import React, { useContext, useEffect, useRef, } from "react";
 import classNames from "classnames";
 import { FormContext } from "./form";
 export var FormItem = function (props) {
@@ -55,9 +56,13 @@ export var FormItem = function (props) {
     var rowClass = classNames("viking-row", {
         "viking-row-no-label": !label,
     });
+    var hasRegisteredRef = useRef(false);
     //组件挂载时：注册字段到全局状态
     useEffect(function () {
         var _a, _b;
+        if (hasRegisteredRef.current)
+            return;
+        hasRegisteredRef.current = true;
         var value = valuePropName === "checked"
             ? ((_a = initialValues === null || initialValues === void 0 ? void 0 : initialValues[name]) !== null && _a !== void 0 ? _a : false)
             : ((_b = initialValues === null || initialValues === void 0 ? void 0 : initialValues[name]) !== null && _b !== void 0 ? _b : "");
@@ -73,7 +78,7 @@ export var FormItem = function (props) {
                 isValid: true,
             },
         });
-    }, []);
+    }, [dispatch, initialValues, label, name, rules, valuePropName]);
     //从全局状态里取出当前字段的值，用来绑定到输入框。
     // 首次渲染时 addField 尚未在 useEffect 中执行，fields[name] 不存在；
     // 若此时把 value 设为 undefined，原生 input 会先非受控再受控，触发 React 警告。
@@ -139,12 +144,6 @@ export var FormItem = function (props) {
     var child = childList[0];
     //cloneElement混合这个child以及手动的属性列表
     var returnChildNode = React.cloneElement(child, __assign(__assign({}, child.props), controlProps));
-    return (React.createElement("div", { className: rowClass },
-        label && (React.createElement("div", { className: "viking-form-item-label" },
-            React.createElement("label", { className: labelClass, title: label }, label))),
-        React.createElement("div", { className: "viking-form-item" },
-            React.createElement("div", { className: itemClass }, returnChildNode),
-            hasError && (React.createElement("div", { className: "viking-form-item-explain" },
-                React.createElement("span", null, errors[0].message))))));
+    return (_jsxs("div", __assign({ className: rowClass }, { children: [label && (_jsx("div", __assign({ className: "viking-form-item-label" }, { children: _jsx("label", __assign({ className: labelClass, title: label }, { children: label })) }))), _jsxs("div", __assign({ className: "viking-form-item" }, { children: [_jsx("div", __assign({ className: itemClass }, { children: returnChildNode })), hasError && (_jsx("div", __assign({ className: "viking-form-item-explain" }, { children: _jsx("span", { children: errors[0].message }) })))] }))] })));
 };
 export default FormItem;

@@ -1,5 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
+import { fn } from "storybook/test";
 import { AutoComplete, DataSourceType } from "./autoComplete";
 
 const lakersWithNumber = [
@@ -76,87 +77,45 @@ import { AutoComplete } from 'vikingship'
       },
     },
   },
+  args: {
+    onSelect: fn(),
+    onChange: fn(),
+  },
   argTypes: {
     fetchSuggestions: {
-      description:
-        "返回输入建议的方法，可以拿到当前的输入，然后返回同步的数组或者是异步的 Promise type DataSourceType = T & DataSourceObject",
-      type: { name: "function", required: true },
-      table: {
-        type: {
-          summary:
-            "(str: string) => DataSourceObject[] | Promise<DataSourceObject[]>",
-        },
-      },
       control: false,
+      table: { disable: true },
     },
     onSelect: {
-      description: "点击选中建议项时触发的回调",
-      table: {
-        type: { summary: "(item: DataSourceObject) => void" },
-      },
       control: false,
+      table: { disable: true },
     },
     onChange: {
-      description: "文本框发生改变的时候触发的事件",
-      table: {
-        type: { summary: "((value: string) => void)" },
-      },
       control: false,
+      table: { disable: true },
     },
     renderOption: {
-      description: "支持自定义渲染下拉项，返回 ReactElement",
-      table: {
-        type: {
-          summary:
-            "(item: DataSourceObject) => ReactElement<any, string | JSXElementConstructor<any>>",
-        },
-      },
       control: false,
+      table: { disable: true },
     },
     placeholder: {
       control: { type: "text" },
     },
     size: {
-      description: "设置 input 大小，支持 lg 或者 sm",
       control: { type: "radio" },
       options: ["lg", "sm"],
-      table: {
-        type: { summary: '"lg" | "sm"' },
-      },
     },
     disabled: {
-      description: "是否禁用 Input",
       control: { type: "boolean" },
-      table: {
-        type: { summary: "boolean" },
-      },
     },
     icon: {
-      description: "添加图标，在右侧悬浮添加一个图标，用于提示",
       control: { type: "object" },
-      table: {
-        type: { summary: "IconProp" },
-      },
     },
     prepend: {
-      description: "添加前缀 用于配置一些固定组合",
       control: { type: "object" },
-      table: {
-        type: {
-          summary:
-            "string | ReactElement<any, string | JSXElementConstructor<any>>",
-        },
-      },
     },
     append: {
-      description: "添加后缀 用于配置一些固定组合",
       control: { type: "object" },
-      table: {
-        type: {
-          summary:
-            "string | ReactElement<any, string | JSXElementConstructor<any>>",
-        },
-      },
     },
 
 

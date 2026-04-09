@@ -3,6 +3,7 @@ import React, {
   ReactNode,
   useContext,
   useEffect,
+  useRef,
   ReactElement,
 } from "react";
 import classNames from "classnames";
@@ -15,15 +16,23 @@ export type SomeRequired<T, K extends keyof T> = Required<Pick<T, K>> &
 //挑选出一些属性设成必选 再将剩下的属性与其合并\
 
 export interface FormItemProps {
+  /** 字段名，对应表单值中的 key */
   name: string;
+  /** 标签文本 */
   label?: string;
+  /** 表单控件节点（仅支持一个子节点） */
   children?: ReactNode;
 
-  valuePropName?: string; //表单值的名称 eg:value或者checked
-  trigger?: string; //什么时候更新Value
-  getValueFromEvent?: (event: any) => any; //怎么获取表单的值（不同表单获取的方式不一样）
+  /** 表单值属性名，例如 `value` 或 `checked` */
+  valuePropName?: string;
+  /** 值变更触发器，例如 `onChange` */
+  trigger?: string;
+  /** 从事件对象中提取值的方法 */
+  getValueFromEvent?: (event: any) => any;
+  /** 校验规则数组，支持静态规则和动态规则函数 */
   rules?: CustromRule[];
-  validateTrigger?: string; //验证的时机
+  /** 触发校验的时机，例如 `onBlur` */
+  validateTrigger?: string;
 }
 
 export const FormItem: FC<FormItemProps> = (props) => {
@@ -45,9 +54,12 @@ export const FormItem: FC<FormItemProps> = (props) => {
   const rowClass = classNames("viking-row", {
     "viking-row-no-label": !label,
   });
+  const hasRegisteredRef = useRef(false);
 
   //组件挂载时：注册字段到全局状态
   useEffect(() => {
+    if (hasRegisteredRef.current) return;
+    hasRegisteredRef.current = true;
     const value =
       valuePropName === "checked"
         ? (initialValues?.[name] ?? false)
@@ -64,7 +76,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
         isValid: true,
       },
     });
-  }, []);
+  }, [dispatch, initialValues, label, name, rules, valuePropName]);
 
   //从全局状态里取出当前字段的值，用来绑定到输入框。
   // 首次渲染时 addField 尚未在 useEffect 中执行，fields[name] 不存在；

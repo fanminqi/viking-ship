@@ -1,3 +1,15 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+import { jsx as _jsx } from "react/jsx-runtime";
 import React, { createContext, useState } from "react";
 import classNames from "classnames";
 export var MenuContext = createContext({ index: "0" });
@@ -34,7 +46,6 @@ var Menu = function (props) {
             }
         });
     };
-    return (React.createElement("ul", { className: classes, style: style },
-        React.createElement(MenuContext.Provider, { value: passedContext }, renderChildren())));
+    return (_jsx("ul", __assign({ className: classes, style: style }, { children: _jsx(MenuContext.Provider, __assign({ value: passedContext }, { children: renderChildren() })) })));
 };
 export default Menu;

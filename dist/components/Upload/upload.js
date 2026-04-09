@@ -18,7 +18,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import React, { useRef, useState } from "react";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useRef, useState } from "react";
 import axios from "axios";
 import UploadList from "./uploadList";
 import Dragger from "./dragger";
@@ -130,12 +131,8 @@ export var Upload = function (props) {
                 onError(error, file);
         });
     };
-    return (React.createElement("div", { className: "viking-upload-component" },
-        React.createElement("div", { onClick: handleClick, className: "viking-upload-input", style: { display: "inline-block" } },
-            drag ? (React.createElement(Dragger, { onFile: function (files) {
-                    uploadFiles(files);
-                } }, children)) : (children),
-            React.createElement("input", { type: "file", ref: fileInput, className: "viking-file-input viking-input-inner", style: { display: "none" }, onChange: handleFileChange, accept: accept, multiple: multiple })),
-        React.createElement(UploadList, { fileList: fileList, onRemove: handleRemove })));
+    return (_jsxs("div", __assign({ className: "viking-upload-component" }, { children: [_jsxs("div", __assign({ onClick: handleClick, className: "viking-upload-input", style: { display: "inline-block" } }, { children: [drag ? (_jsx(Dragger, __assign({ onFile: function (files) {
+                            uploadFiles(files);
+                        } }, { children: children }))) : (children), _jsx("input", { type: "file", ref: fileInput, className: "viking-file-input viking-input-inner", style: { display: "none" }, onChange: handleFileChange, accept: accept, multiple: multiple })] })), _jsx(UploadList, { fileList: fileList, onRemove: handleRemove })] })));
 };
 export default Upload;

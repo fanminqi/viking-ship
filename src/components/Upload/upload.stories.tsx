@@ -1,5 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
+import { fn } from "storybook/test";
 import Upload from "./upload";
 import Button from "../Button/button";
 import Icon from "../Icon/icon";
@@ -19,7 +20,7 @@ const checkFileSize = (file: File) => {
 };
 
 const meta = {
-  title: "第十章： Upload",
+  title: "Upload",
   component: Upload,
   tags: ["autodocs"],
   parameters: {
@@ -37,81 +38,64 @@ import { Upload } from 'vikingship'
       },
     },
   },
+  args: {
+    onSuccess: fn(),
+    onError: fn(),
+    onChange: fn(),
+    onRemove: fn(),
+    onProgress: fn(),
+  },
   argTypes: {
     action: {
-      description: "必选参数, 上传的地址",
       control: { type: "text" },
-      table: { type: { summary: "string" } },
     },
     defaultFileList: {
-      description: "上传的文件列表",
       control: { type: "object" },
-      table: { type: { summary: "UploadFile[]" } },
     },
     beforeUpload: {
-      description: "上传文件之前的钩子，参数为上传的文件，若返回 false 或者 Promise 则停止上传",
       control: false,
-      table: { type: { summary: "(file: File) => boolean | Promise<File>" } },
+      table: { disable: true },
     },
     onProgress: {
-      description: "文件上传时的钩子",
       control: false,
-      table: { type: { summary: "(percentage: number, file: UploadFile) => void" } },
+      table: { disable: true },
     },
     onSuccess: {
-      description: "文件上传成功时的钩子",
       control: false,
-      table: { type: { summary: "(data: any, file: UploadFile) => void" } },
+      table: { disable: true },
     },
     onError: {
-      description: "文件上传失败时的钩子",
       control: false,
-      table: { type: { summary: "(error: any, file: UploadFile) => void" } },
+      table: { disable: true },
     },
     onChange: {
-      description: "文件状态改变时的钩子，上传成功或者失败时都会被调用",
       control: false,
-      table: { type: { summary: "(file: UploadFile) => void" } },
+      table: { disable: true },
     },
     onRemove: {
-      description: "文件列表移除文件时的钩子",
       control: false,
-      table: { type: { summary: "(file: UploadFile) => void" } },
+      table: { disable: true },
     },
     headers: {
-      description: "设置上传的请求头",
       control: { type: "object" },
-      table: { type: { summary: "{ [key: string]: any }" } },
     },
     name: {
-      description: "上传的文件字段名",
       control: { type: "text" },
-      table: { type: { summary: "string" }, defaultValue: { summary: "'file'" } },
     },
     data: {
-      description: "上传时附带的额外参数",
       control: { type: "object" },
-      table: { type: { summary: "{ [key: string]: any }" } },
     },
     withCredentials: {
-      description: "支持发送 cookie 凭证信息",
       control: { type: "boolean" },
-      table: { type: { summary: "boolean" } },
     },
     accept: {
-      description: "可选参数, 接受上传的文件类型",
       control: { type: "text" },
-      table: { type: { summary: "string" } },
     },
     multiple: {
-      description: "是否支持多选文件",
       control: { type: "boolean" },
-      table: { type: { summary: "boolean" } },
     },
     drag: {
-      description: "是否支持拖拽上传",
       control: { type: "boolean" },
-      table: { type: { summary: "boolean" } },
     },
   },
 } satisfies Meta<typeof Upload>;

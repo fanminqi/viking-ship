@@ -1,25 +1,17 @@
-// import React, { useContext } from "react";
-// import classNames from "classnames";
-// import { TabContext } from "./Tabs";
-// export interface TabItemProps {
-//   label?: string;
-//   disabled?: boolean;
-//   className?: string;
-//   children?: React.ReactNode;
-// }
-// const TabItem: React.FC<TabItemProps> = (props) => {
-//   const { label, className, disabled, children } = props;
-//   const classes = classNames("Tab-item", className, {
-//     disabled: disabled,
-//   });
-//   const context = useContext(TabContext);
-//   // context.getText(children);
-//   return <li className={classes}>{children}</li>;
-// };
-// export default TabItem;
-import React from "react";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+import { jsx as _jsx } from "react/jsx-runtime";
 export var TabItem = function (_a) {
     var children = _a.children;
-    return React.createElement("div", { className: "viking-tab-panel" }, children);
+    return _jsx("div", __assign({ className: "viking-tab-panel" }, { children: children }));
 };
 export default TabItem;

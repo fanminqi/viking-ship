@@ -11,7 +11,6 @@ import Input, { InputProps } from "../Input/input";
 import Icon from "../Icon/icon";
 import useDebounce from "../../hooks/useDebounce";
 import classNames from "classnames";
-import "./style.scss";
 import useClickOutside from "../../hooks/useClickOutside";
 
 //下拉菜单数据类型
@@ -21,11 +20,14 @@ interface DataSourceObject {
 export type DataSourceType<T = {}> = T & DataSourceObject;
 
 export interface AutoCompleteProps extends Omit<InputProps, "onSelect"> {
+  /** 输入关键字后拉取候选项，可返回同步数组或 Promise */
   fetchSuggestions: (
     str: string,
-  ) => DataSourceType[] | Promise<DataSourceType[]>; //接收用户搜索返回对应选项
-  onSelect?: (item: DataSourceType) => void; //点击下拉菜单某一项时要执行的函数
-  renderOption?: (item: DataSourceType) => ReactElement; //对下拉框元素进行渲染的方法
+  ) => DataSourceType[] | Promise<DataSourceType[]>;
+  /** 点击选中候选项时触发 */
+  onSelect?: (item: DataSourceType) => void;
+  /** 自定义候选项渲染 */
+  renderOption?: (item: DataSourceType) => ReactElement;
 }
 
 export const AutoComplete: FC<AutoCompleteProps> = (props) => {

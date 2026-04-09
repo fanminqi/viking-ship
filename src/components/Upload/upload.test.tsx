@@ -51,8 +51,13 @@ describe("test upload component", () => {
     // 2. 在页面中找到文案是 "Click to upload" 的元素 → 上传区域
     const uploadArea = screen.getByText("Click to upload");
 
-    // 3. 模拟 axios.post 请求成功，返回数据 { data: "cool" }
-    mockedAxios.post.mockResolvedValue({ data: "cool" });
+    // 3. 模拟 axios：延迟 resolve，确保先渲染 uploading 状态（否则微任务可能在首帧前就进入 success，看不到 spinner）
+    mockedAxios.post.mockImplementation(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ data: "cool" }), 30),
+        ),
+    );
 
     // 4. 断言：上传区域必须在页面中
     expect(uploadArea).toBeInTheDocument();
@@ -106,8 +111,13 @@ describe("test upload component", () => {
     // 2. 获取上传区域
     const uploadArea = screen.getByText("Click to upload");
 
-    // 3. mock axios 成功
-    mockedAxios.post.mockResolvedValue({ data: "cool" });
+    // 3. mock axios 成功（延迟，避免与 uploading 渲染竞态）
+    mockedAxios.post.mockImplementation(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ data: "cool" }), 30),
+        ),
+    );
 
     // 4. 模拟拖拽经过（dragOver）
     fireEvent.dragOver(uploadArea);

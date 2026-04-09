@@ -6,7 +6,7 @@ import Button from "./button";
 
 // 元数据配置
 const meta = {
-  title: "第四章：Button",
+  title: "Button",
   component: Button,
   // 页面参数
   parameters: {
@@ -22,41 +22,27 @@ const meta = {
   },
   // 配置控制面板（右侧面板）显示哪些属性、怎么显示
   argTypes: {
-    //按钮内容
     children: {
-      description: "按钮内容",
       control: { type: "text" },
     },
-    //自定义类名
     className: {
-      description: "自定义 className",
       control: { type: "text" },
     },
-    //是否禁用
     disabled: {
-      description: "按钮是否禁用",
       control: { type: "boolean" },
     },
-    //尺寸
     size: {
-      description: "按钮尺寸",
       control: { type: "radio" },
       options: ["lg", "sm"],
     },
-   //按钮类型
     btnType: {
-      description: "按钮类型",
       control: { type: "radio" },
       options: ["link", "default", "danger", "primary"],
     },
-    //链接地址 
     href: {
-      description: "链接地址（btnType=link 时生效）",
       control: { type: "text" },
     },
-    //点击事件
     onClick: {
-      description: "点击事件",
       action: "clicked",// 点击时在 Actions 面板打印日志
       control: { disable: true },// 不在控制面板显示
       table: { disable: true }, // 不在文档表格显示
@@ -94,6 +80,7 @@ export const ADefault: Story = {
 // ==============================================
 export const BButtonWithSize: Story = {
   name: "不同尺寸的按钮",
+  args: {},
   render: (args) => (
     <>
       <Button size="lg" onClick={args.onClick}>
@@ -115,6 +102,7 @@ export const BButtonWithSize: Story = {
 // ==============================================
 export const CButtonWithType: Story = {
   name: "不同类型的按钮",
+  args: {},
   render: (args) => (
     <>
       <Button btnType="primary" onClick={args.onClick}>
@@ -135,11 +123,3 @@ export const CButtonWithType: Story = {
 };
 
 
-
-//storybook总结
-// meta = 组件的全局配置（标题、文档、控制面板）
-// args = 组件的默认参数
-// argTypes = 控制面板怎么显示
-// Story = 组件的不同使用示例
-// tags: ['autodocs'] = 自动生成文档 + Props 表格
-// controls.disable: true = 组合展示时隐藏控制面板

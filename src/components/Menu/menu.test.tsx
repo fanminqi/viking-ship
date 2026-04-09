@@ -81,7 +81,7 @@ describe("test Menu and MenuItem component in default(horizontal) mode", () => {
   });
   it("should show dropdown items when hover on subMenu", async () => {
     render(generateMenu(testProps));
-    expect(screen.queryByText("drop1")).not.toBeVisible();
+    expect(screen.queryByText("drop1")).not.toBeInTheDocument();
     const dropdownElement = screen.getByText("dropdown");
     fireEvent.mouseEnter(dropdownElement);
     jest.advanceTimersByTime(200);
@@ -93,7 +93,7 @@ describe("test Menu and MenuItem component in default(horizontal) mode", () => {
     fireEvent.mouseLeave(dropdownElement);
     jest.advanceTimersByTime(200);
     await waitFor(() => {
-      expect(screen.queryByText("drop1")).not.toBeVisible();
+      expect(screen.queryByText("drop1")).not.toBeInTheDocument();
     });
   });
 });
@@ -104,15 +104,14 @@ describe("test Menu and MenuItem component in vertical mode", () => {
   });
   it("should render vertical mode when mode is set to vertical", () => {
     render(generateMenu(testVerProps));
-    const menuElement = screen.getByRole("list");
+    const menuElement = screen.getAllByRole("list")[0];
     expect(menuElement).toHaveClass("menu-vertical");
   });
   it("should show dropdown items when click on subMenu for vertical mode", () => {
     render(generateMenu(testVerProps));
-    const dropDownItem = screen.queryByText("drop1");
-    expect(dropDownItem).not.toBeVisible();
+    expect(screen.queryByText("drop1")).not.toBeInTheDocument();
     fireEvent.click(screen.getByText("dropdown"));
-    expect(dropDownItem).toBeVisible();
+    expect(screen.getByText("drop1")).toBeVisible();
   });
   it("should show subMenu dropdown when defaultOpenSubMenus contains SubMenu index", () => {
     render(generateMenu(testVerProps));

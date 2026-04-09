@@ -14,6 +14,7 @@ export type ThemeProps =
   | "light"
   | "dark";
 export interface IconProps extends FontAwesomeIconProps {
+  /** 主题色，会映射为 `icon-${theme}` 样式类 */
   theme?: ThemeProps;
 }
 const Icon: React.FC<IconProps> = (props) => {

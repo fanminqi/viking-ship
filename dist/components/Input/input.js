@@ -20,7 +20,8 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React from "react";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { forwardRef, } from "react";
 import Icon from "../Icon/icon";
 import classNames from "classnames";
 /** Input 输入框 通过鼠标或键盘输入内容，是最基础的表单域的包装。
@@ -32,11 +33,9 @@ import classNames from "classnames";
  *
  *支持HTMLInput的所有基本属性
  */
-export var Input = function (props) {
+export var Input = forwardRef(function (props, ref) {
     var _a;
-    //取出各种属性
     var disabled = props.disabled, size = props.size, icon = props.icon, prepend = props.prepend, append = props.append, style = props.style, restProps = __rest(props, ["disabled", "size", "icon", "prepend", "append", "style"]);
-    //根据属性计算不同的className
     var classes = classNames("viking-input-wrapper", (_a = {
             "is-disabled": disabled === true
         },
@@ -48,13 +47,7 @@ export var Input = function (props) {
     if ("value" in props) {
         delete restProps.defaultValue;
     }
-    return (
-    //根据属性判断是否要添加特定的节点
-    React.createElement("div", { className: classes, style: style },
-        prepend && React.createElement("div", { className: "viking-input-group-prepend" }, prepend),
-        icon && (React.createElement("div", { className: "icon-wrapper" },
-            React.createElement(Icon, { icon: icon, title: "title-".concat(icon) }))),
-        React.createElement("input", __assign({ className: "viking-input-inner", disabled: disabled }, restProps)),
-        append && React.createElement("div", { className: "viking-input-group-append" }, append)));
-};
+    return (_jsxs("div", __assign({ className: classes, style: style }, { children: [prepend && _jsx("div", __assign({ className: "viking-input-group-prepend" }, { children: prepend })), icon && (_jsx("div", __assign({ className: "icon-wrapper" }, { children: _jsx(Icon, { icon: icon, title: "title-".concat(icon) }) }))), _jsx("input", __assign({ ref: ref, className: "viking-input-inner", disabled: disabled }, restProps)), append && _jsx("div", __assign({ className: "viking-input-group-append" }, { children: append }))] })));
+});
+Input.displayName = "Input";
 export default Input;

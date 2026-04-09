@@ -56,7 +56,8 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { createContext, forwardRef, useImperativeHandle, } from "react";
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { createContext, forwardRef, useImperativeHandle, } from "react";
 import useStore from "./useStore";
 export var FormContext = createContext({});
 export var Form = forwardRef(function (props, ref) {
@@ -101,11 +102,6 @@ export var Form = forwardRef(function (props, ref) {
     else {
         childrenNode = children;
     }
-    return (React.createElement(React.Fragment, null,
-        React.createElement("form", { name: name, className: "viking-form", onSubmit: submitForm },
-            React.createElement(FormContext.Provider, { value: passedContext }, childrenNode)),
-        React.createElement("div", null,
-            React.createElement("pre", { style: { whiteSpace: "pre-wrap" } }, JSON.stringify(fields)),
-            React.createElement("pre", { style: { whiteSpace: "pre-wrap" } }, JSON.stringify(form)))));
+    return (_jsxs(_Fragment, { children: [_jsx("form", __assign({ name: name, className: "viking-form", onSubmit: submitForm }, { children: _jsx(FormContext.Provider, __assign({ value: passedContext }, { children: childrenNode })) })), _jsxs("div", { children: [_jsx("pre", __assign({ style: { whiteSpace: "pre-wrap" } }, { children: JSON.stringify(fields) })), _jsx("pre", __assign({ style: { whiteSpace: "pre-wrap" } }, { children: JSON.stringify(form) }))] })] }));
 });
 export default Form;

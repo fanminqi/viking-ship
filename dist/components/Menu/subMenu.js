@@ -9,6 +9,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import React, { useContext, useState } from "react";
 import classNames from "classnames";
 import { MenuContext } from "./menu";
@@ -84,15 +85,10 @@ var SubMenu = function (_a) {
                 console.error("Warning:SubMenu has a child which is not a MenuItem");
             }
         });
-        return (React.createElement(Transition, { in: menuOpen, timeout: 300, animation: "zoom-in-top", unmountOnExit: true, appear: true },
-            React.createElement("ul", { className: subMenuClasses }, childrenComponent)));
+        return (_jsx(Transition, __assign({ in: menuOpen, timeout: 300, animation: "zoom-in-top", unmountOnExit: true, appear: true }, { children: _jsx("ul", __assign({ className: subMenuClasses }, { children: childrenComponent })) })));
     };
     //render函数
-    return (React.createElement("li", __assign({ key: index, className: classes }, hoverEvents),
-        React.createElement("div", __assign({ className: "submenu-title", onClick: handleClick }, clickEvents),
-            title,
-            React.createElement(Icon, { icon: "angle-down", className: "arrow-icon" })),
-        renderChildren()));
+    return (_jsxs("li", __assign({ className: classes }, hoverEvents, { children: [_jsxs("div", __assign({ className: "submenu-title", onClick: handleClick }, clickEvents, { children: [title, _jsx(Icon, { icon: "angle-down", className: "arrow-icon" })] })), renderChildren()] }), index));
 };
 SubMenu.displayName = "SubMenu";
 export default SubMenu;

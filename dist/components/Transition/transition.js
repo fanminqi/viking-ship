@@ -20,6 +20,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
+import { jsx as _jsx } from "react/jsx-runtime";
 import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 var Transition = function (props) {
@@ -28,14 +29,14 @@ var Transition = function (props) {
     var nodeRef = useRef(null);
     var childNode = wrapper ? (
     // 情况2：wrapper 为 false，且 children 是有效 React 元素 → 克隆元素并绑定 Ref
-    React.createElement("div", { ref: nodeRef }, children)) : React.isValidElement(children) ? (
+    _jsx("div", __assign({ ref: nodeRef }, { children: children }))) : React.isValidElement(children) ? (
     // 情况2：wrapper 为 false，且 children 是有效 React 元素 → 克隆元素并绑定 Ref
     React.cloneElement(children, {
         ref: nodeRef,
     })) : (
     // 情况3：children 不是有效元素（文本/数字/null 等）→ 用 span 包裹并绑定 Ref
-    React.createElement("span", { ref: nodeRef }, children));
-    return (React.createElement(CSSTransition, __assign({ classNames: classNames ? classNames : animation, nodeRef: nodeRef }, restProps), childNode));
+    _jsx("span", __assign({ ref: nodeRef }, { children: children })));
+    return (_jsx(CSSTransition, __assign({ classNames: classNames ? classNames : animation, nodeRef: nodeRef }, restProps, { children: childNode })));
     // Transition.defaultProps = {
     // unmountOnExit: true,
     // appear: true,

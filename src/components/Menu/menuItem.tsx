@@ -3,13 +3,15 @@ import classNames from "classnames";
 import { MenuContext } from "./menu";
 
 export interface MenuItemProps {
+  /** 选项索引（由 Menu 内部注入） */
   index?: string;
-  /**选项是否被禁用 */
+  /** 选项是否禁用 */
   disabled?: boolean;
-  /**选项扩展的 className */
+  /** 选项扩展 className */
   className?: string;
-  /**选项的自定义 style */
+  /** 选项自定义样式 */
   style?: React.CSSProperties;
+  /** 选项内容 */
   children?: React.ReactNode;
 }
 const MenuItem: React.FC<MenuItemProps> = (props) => {

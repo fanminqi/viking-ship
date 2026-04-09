@@ -116,8 +116,9 @@ function useStore(initialValues) {
     var validateField = function (name) { return __awaiter(_this, void 0, void 0, function () {
         var _a, value, rules, afterRules, descriptor, valueMap, validator, isValid, errors, e_1, err;
         var _b, _c;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var _d, _e;
+        return __generator(this, function (_f) {
+            switch (_f.label) {
                 case 0:
                     _a = fields[name], value = _a.value, rules = _a.rules;
                     afterRules = transformRules(rules);
@@ -130,20 +131,23 @@ function useStore(initialValues) {
                     validator = new Schema(descriptor);
                     isValid = true;
                     errors = [];
-                    _d.label = 1;
+                    _f.label = 1;
                 case 1:
-                    _d.trys.push([1, 3, 4, 5]);
+                    _f.trys.push([1, 3, 4, 5]);
                     return [4 /*yield*/, validator.validate(valueMap)];
                 case 2:
-                    _d.sent();
+                    _f.sent();
                     return [3 /*break*/, 5];
                 case 3:
-                    e_1 = _d.sent();
+                    e_1 = _f.sent();
                     isValid = false;
                     err = e_1;
-                    console.log("e", err.errors);
-                    console.log("fields", err.fields);
-                    errors = err.errors;
+                    errors =
+                        ((_d = err.errors) === null || _d === void 0 ? void 0 : _d.length)
+                            ? err.errors
+                            : name && ((_e = err.fields) === null || _e === void 0 ? void 0 : _e[name])
+                                ? err.fields[name]
+                                : [];
                     return [3 /*break*/, 5];
                 case 4:
                     console.log("errors", isValid);

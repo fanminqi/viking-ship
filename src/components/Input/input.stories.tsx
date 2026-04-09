@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Input } from "./input";
 
-
 const ControlledInput = () => {
   const [value, setValue] = useState("");
   return (
@@ -16,79 +15,43 @@ const ControlledInput = () => {
 };
 
 const meta = {
-  title: "第九章：Input",
-  component:Input,
-  parameters:{
-    layout:'centered',
+  title: "Input",
+  component: Input,
+  tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
   },
-   tags: ["autodocs"],
-   argTypes: {
-    placeholder:{
-    
+  argTypes: {
+    placeholder: {
       control: { type: "text" },
     },
-    disabled:{
-      description:'是否禁用Input',
-      control:{type:'boolean'},
-      table: {
-        type: { summary: "boolean" },
-      },
+    disabled: {
+      control: { type: "boolean" },
     },
-    size:{
-      description:'设置 input 大小，支持 lg 或者是 sm',
-      control:{type:'radio'},
-      options:['lg','sm'],
-      table: {
-        type: { summary: '"lg" | "sm"' },
-      },
+    size: {
+      control: { type: "radio" },
+      options: ["lg", "sm"],
     },
-    icon:{
-      description:'添加图标，在右侧悬浮添加一个图标，用于提示',
-      control:{type:'object'},
-      table: {
-        type: { summary: "IconProp" },
-      },
+    icon: {
+      control: { type: "object" },
     },
-    prepend:{
-      description:'添加前缀 用于配置一些固定组合',
-      control:{type:'text'},
-      table: {
-        type: {
-          summary:
-            "string | ReactElement<any, string | JSXElementConstructor<any>>",
-        },
-      },
+    prepend: {
+      control: { type: "text" },
     },
-    append:{
-      description:'添加后缀 用于配置一些固定组合',
-      control:{type:'text'},
-      table: {
-        type: {
-          summary:
-            "string | ReactElement<any, string | JSXElementConstructor<any>>",
-        },
-      },
+    append: {
+      control: { type: "text" },
     },
     onChange: {
-      table: {
-        type: { summary: "((e: ChangeEvent<HTMLInputElement>) => void)" },
-      },
       control: false,
     },
-   }
-}satisfies Meta<typeof Input>;
+  },
+} satisfies Meta<typeof Input>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const DisabledInput: Story = {
   name: "被禁用的 Input",
-  parameters: {
-    docs: {
-      source: {
-        code: `<Input placeholder="disabled input" disabled size="lg" />`,
-      },
-    },
-  },
   args: {
     placeholder: "我的Input组件",
     disabled: true,
@@ -102,25 +65,15 @@ export const DisabledInput: Story = {
 
 export const Controlled: Story = {
   name: "受控的 Input",
+  args: {},
   parameters: {
-    docs: {
-      source: {
-        code: `<Input value={value} onChange={(e) => setValue(e.target.value)} placeholder="controlled input" />`,
-      },
-    },
+    controls: { disable: true },
   },
   render: () => <ControlledInput />,
 };
 
 export const WithIcon: Story = {
   name: "带图标的 Input",
-  parameters: {
-    docs: {
-      source: {
-        code: `<Input placeholder="input with icon" icon={faMagnifyingGlass} size="lg" />`,
-      },
-    },
-  },
   args: {
     placeholder: "input with icon",
     disabled: false,
@@ -134,16 +87,9 @@ export const WithIcon: Story = {
 
 export const DifferentSizes: Story = {
   name: "大小不同的 Input",
+  args: {},
   parameters: {
     controls: { disable: true },
-    docs: {
-      source: {
-        code: [
-          `<Input placeholder="large size" size="lg" />`,
-          `<Input placeholder="small size" size="sm" />`,
-        ].join("\n"),
-      },
-    },
   },
   render: () => (
     <>
@@ -155,13 +101,9 @@ export const DifferentSizes: Story = {
 
 export const WithPrependAppend: Story = {
   name: "带前后缀的 Input",
+  args: {},
   parameters: {
     controls: { disable: true },
-    docs: {
-      source: {
-        code: `<Input placeholder="prepend text" prepend="https://" append=".com" />`,
-      },
-    },
   },
   render: () => (
     <Input placeholder="prepend text" prepend="https://" append=".com" />

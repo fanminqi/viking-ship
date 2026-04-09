@@ -1,5 +1,4 @@
 import React, {
-  FC,
   ReactNode,
   createContext,
   forwardRef,
@@ -11,13 +10,19 @@ import { ValidateError } from "async-validator";
 export type RenderProps = (form: FormState) => ReactNode;
 
 export interface FormProps {
+  /** 表单 name 属性 */
   name?: string;
-  initialValues?: Record<string, any>; //FormItems表单组件的初始值们
+  /** Form.Item 字段初始值 */
+  initialValues?: Record<string, any>;
+  /** 表单内容，支持节点或 render props */
   children?: ReactNode | RenderProps;
-  onFinish?: (values: Record<string, any>) => void; //表单验证成功后回调
+  /** 表单验证成功后回调 */
+  onFinish?: (values: Record<string, any>) => void;
+  /** 表单验证失败后回调 */
   onFinishFailed?: (
-    //表单验证失败后回调
+    /** 当前字段值 */
     values: Record<string, any>,
+    /** 字段级错误信息 */
     errors: Record<string, ValidateError[]>,
   ) => void;
 }
@@ -86,10 +91,6 @@ export const Form = forwardRef<IFormRef, FormProps>((props, ref) => {
           {childrenNode}
         </FormContext.Provider>
       </form>
-      <div>
-        <pre style={{ whiteSpace: "pre-wrap" }}>{JSON.stringify(fields)}</pre>
-        <pre style={{ whiteSpace: "pre-wrap" }}>{JSON.stringify(form)}</pre>
-      </div>
     </>
   );
 });

@@ -20,7 +20,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React from "react";
+import { jsx as _jsx } from "react/jsx-runtime";
 import classnames from "classnames";
 /**
  * 页面中最常用的的按钮元素，适合于完成特定的交互，支持 HTML button 和 a 链接 的所有属性
@@ -40,15 +40,15 @@ export var Button = function (props) {
         _a));
     if (btnType === "link" && href) {
         //超链接
-        return (React.createElement("a", __assign({ className: classes, href: href, "aria-disabled": disabled, tabIndex: disabled ? -1 : undefined, onClick: function (e) {
+        return (_jsx("a", __assign({ className: classes, href: href, "aria-disabled": disabled, tabIndex: disabled ? -1 : undefined, onClick: function (e) {
                 if (disabled)
                     e.preventDefault();
-            } }, restProps), children));
+            } }, restProps, { children: children })));
     }
     else {
         return (
         //disabled是button原生属性 为ture的话禁用按钮
-        React.createElement("button", __assign({ className: classes, disabled: disabled }, restProps), children));
+        _jsx("button", __assign({ className: classes, disabled: disabled }, restProps, { children: children })));
     }
 };
 export default Button;
