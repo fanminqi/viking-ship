@@ -5,7 +5,6 @@ on:
     branches: [test]
   workflow_dispatch:
 
-# 必须配置的权限，否则部署失败
 permissions:
   contents: read
   pages: write
@@ -14,34 +13,24 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # 环境配置必须放在 job 内部！
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    # 👇 这里去掉 environment 配置
     steps:
-      - name: 拉取代码
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 设置 Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
 
-      - name: 安装依赖
-        run: npm ci
+      - run: npm ci
+      - run: npm run build-storybook
 
-      - name: 构建 Storybook
-        run: npm run build-storybook
+      - uses: actions/configure-pages@v5
 
-      - name: 配置 GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: 上传构建产物
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: "./storybook-static"
 
-      - name: 部署到 GitHub Pages
-        id: deployment
+      # 👇 这里也不要加 environment
+      - id: deployment
         uses: actions/deploy-pages@v4
