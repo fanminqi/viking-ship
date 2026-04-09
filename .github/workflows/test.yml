@@ -1,0 +1,27 @@
+name: Test
+
+on:
+  push:
+    branches: [test, master] # 推送到这些分支自动跑
+  pull_request:
+    branches: [main, master] # 发起 PR 自动跑
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # 你用的 Node 版本
+          cache: "npm" # 缓存依赖，加速
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
