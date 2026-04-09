@@ -1,36 +1,37 @@
-name: 自动发布文档到 GitHub Pages
+name: 最终稳定版 - 发布 Storybook
 
 on:
   push:
     branches: [test]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    # 👇 这里去掉 environment 配置
     steps:
-      - uses: actions/checkout@v4
+      - name: 检出代码
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
 
-      - run: npm ci
-      - run: npm run build-storybook
+      - name: 安装依赖
+        run: npm ci
 
-      - uses: actions/configure-pages@v5
+      - name: 构建 Storybook（强制显示日志）
+        run: |
+          echo "开始构建..."
+          npm run build-storybook
+          echo "构建完成，列出目录："
+          ls -la
+          ls -la storybook-static || echo "未生成 storybook-static 目录"
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: "./storybook-static"
-
-      # 👇 这里也不要加 environment
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook-static
+          cname: "" # 如果不用自定义域名，留空
