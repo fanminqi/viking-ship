@@ -39,11 +39,11 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky install",
-    "prepublish": "npm run test:nowatch && npm run lint && npm run build"
+    "prepublishOnly": "npm run test:nowatch && npm run lint && npm run build"
   },
-  "husky":{
-    "hooks":{
-      "pre-commit":"npm run test:nowatch && npm run lint"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:nowatch && npm run lint"
     }
   },
   "eslintConfig": {
