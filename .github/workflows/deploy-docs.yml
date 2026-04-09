@@ -1,0 +1,39 @@
+name: 自动发布文档到 GitHub Pages
+
+# 触发条件：推送到 test 分支就自动发布
+on:
+  push:
+    branches: [test]
+
+# 发布权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: 安装依赖
+        run: npm install
+
+      - name: 构建文档
+        run: npm run build-storybook # 生成静态文件
+
+      - name: 上传构建产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: storybook-static # 你的文档输出目录
+
+      - name: 发布到 GitHub Pages
+        uses: actions/deploy-pages@v4
