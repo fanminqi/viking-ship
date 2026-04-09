@@ -5,6 +5,7 @@ on:
     branches: [test]
   workflow_dispatch:
 
+# 必须配置的权限，否则部署失败
 permissions:
   contents: read
   pages: write
@@ -17,9 +18,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - name: 拉取代码
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
@@ -27,14 +30,16 @@ jobs:
       - name: 安装依赖
         run: npm ci
 
-      - name: 构建 Storybook (调试信息)
-        run: |
-          echo "当前目录结构："
-          ls -la
-          echo "开始构建..."
-          npm run build-storybook
-        # 如果你的项目在子文件夹，取消下面注释并修改路径
-        # working-directory: ./your-subdir
+      - name: 构建 Storybook
+        run: npm run build-storybook
+
+      - name: 配置 GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传构建产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./storybook-static"
 
       - name: 部署到 GitHub Pages
         id: deployment
