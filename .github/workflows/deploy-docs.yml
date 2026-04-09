@@ -2,7 +2,7 @@ name: 最终稳定版 - 发布 Storybook
 
 on:
   push:
-    branches: [test]
+    branches: [master]
   workflow_dispatch:
 
 jobs:
