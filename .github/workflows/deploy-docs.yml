@@ -11,12 +11,14 @@ permissions:
   pages: write
   id-token: write
 
+# 必须指定环境，否则 GitHub 不允许部署
+environment:
+  name: github-pages
+  url: ${{ steps.deployment.outputs.page_url }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: 拉取代码
         uses: actions/checkout@v4
