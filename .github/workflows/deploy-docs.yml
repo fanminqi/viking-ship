@@ -1,8 +1,8 @@
-name: 最终稳定版 - 发布 Storybook
+name: 最终稳定版 - 发布 Storybook (Master)
 
 on:
   push:
-    branches: [master]
+    branches: [master] # 强制只在 master 触发
   workflow_dispatch:
 
 jobs:
@@ -21,17 +21,12 @@ jobs:
       - name: 安装依赖
         run: npm ci
 
-      - name: 构建 Storybook（强制显示日志）
-        run: |
-          echo "开始构建..."
-          npm run build-storybook
-          echo "构建完成，列出目录："
-          ls -la
-          ls -la storybook-static || echo "未生成 storybook-static 目录"
+      - name: 构建 Storybook
+        run: npm run build-storybook
 
-      - name: 部署到 GitHub Pages
+      - name: 部署到 GitHub Pages（最稳定方案）
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./storybook-static
-          cname: "" # 如果不用自定义域名，留空
+          force_orphan: true
